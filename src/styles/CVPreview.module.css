@@ -1,0 +1,109 @@
+.cvContainer {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 48px 56px;
+    background: #ffffff;
+    color: #37352f;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    min-height: 1123px;
+    box-sizing: border-box;
+    page-break-inside: auto;
+    overflow: visible;
+    line-height: 1.6;
+}
+
+.cvHeader {
+    border-bottom: 2px solid #37352f;
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+    page-break-inside: avoid;
+}
+
+.cvName {
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #37352f;
+    margin-bottom: 8px;
+}
+
+.cvContact {
+    display: flex;
+    gap: 32px;
+    margin-top: 12px;
+    font-size: 1rem;
+    color: #787774;
+    font-weight: 400;
+}
+
+.cvSection {
+    margin-bottom: 36px;
+    page-break-inside: avoid;
+    page-break-after: auto;
+}
+
+.cvSectionTitle {
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-bottom: 1px solid #e3e2e0;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    page-break-after: avoid;
+    color: #37352f;
+    padding-bottom: 8px;
+}
+
+.cvEduItem, .cvExpItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    page-break-inside: avoid;
+    align-items: flex-start;
+}
+
+.cvEduDetails, .cvExpDetails {
+    flex: 1;
+    font-weight: 500;
+    color: #37352f;
+}
+
+.cvEduYear, .cvExpDuration {
+    min-width: 120px;
+    text-align: right;
+    color: #787774;
+    font-size: 0.95rem;
+    font-weight: 400;
+}
+
+/* List styling for skills, activities, certifications */
+.cvContainer ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #37352f;
+}
+
+.cvContainer li {
+    margin-bottom: 6px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* Multi-page support */
+@media print {
+    .cvContainer {
+        page-break-after: always;
+        height: 1123px;
+        overflow: hidden;
+    }
+    
+    .cvSection {
+        page-break-inside: avoid;
+    }
+    
+    .cvSectionTitle {
+        page-break-after: avoid;
+    }
+} 
