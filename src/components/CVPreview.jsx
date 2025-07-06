@@ -5,38 +5,45 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
     return (
         <div className={styles.cvContainer}>
             <div className={styles.cvHeader}>
-                <div className={styles.cvName}>
-                    {userInfo.firstName} {userInfo.lastName}
-                </div>
-                <div className={styles.cvContact}>
-                    {userInfo.email && (
-                        <span>
-                            {userInfo.email.startsWith('http') ? (
-                                <a href={userInfo.email} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
-                                    {userInfo.email}
-                                </a>
-                            ) : (
-                                <a href={`mailto:${userInfo.email}`} className={styles.contactLink}>
-                                    {userInfo.email}
-                                </a>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+                    {userInfo.photo && (
+                        <img src={userInfo.photo} alt="Profil" style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover', border: '2px solid #e3e2e0' }} />
+                    )}
+                    <div>
+                        <div className={styles.cvName}>
+                            {userInfo.firstName} {userInfo.lastName}
+                        </div>
+                        <div className={styles.cvContact}>
+                            {userInfo.email && (
+                                <span>
+                                    {userInfo.email.startsWith('http') ? (
+                                        <a href={userInfo.email} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
+                                            {userInfo.email}
+                                        </a>
+                                    ) : (
+                                        <a href={`mailto:${userInfo.email}`} className={styles.contactLink}>
+                                            {userInfo.email}
+                                        </a>
+                                    )}
+                                </span>
                             )}
-                        </span>
-                    )}
-                    {userInfo.phone && <span>{userInfo.phone}</span>}
-                    {userInfo.linkedin && (
-                        <span>
-                            <a href={userInfo.linkedin} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
-                                {userInfo.linkedin}
-                            </a>
-                        </span>
-                    )}
-                    {userInfo.github && (
-                        <span>
-                            <a href={userInfo.github} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
-                                {userInfo.github}
-                            </a>
-                        </span>
-                    )}
+                            {userInfo.phone && <span>{userInfo.phone}</span>}
+                            {userInfo.linkedin && (
+                                <span>
+                                    <a href={userInfo.linkedin} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
+                                        {userInfo.linkedin}
+                                    </a>
+                                </span>
+                            )}
+                            {userInfo.github && (
+                                <span>
+                                    <a href={userInfo.github} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
+                                        {userInfo.github}
+                                    </a>
+                                </span>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
 
