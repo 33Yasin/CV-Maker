@@ -6,6 +6,94 @@
   /* Title styles */
 }
 
+.activitiesItem {
+  border: 1px solid #e3e2e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+.summaryCard {
+  border: 1px solid #e3e2e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.summaryCard:hover {
+  border-color: #d1d1d0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.summaryContent {
+  flex: 1;
+}
+
+.summaryTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #37352f;
+  margin-bottom: 4px;
+}
+
+.summaryActivities {
+  font-size: 14px;
+  color: #787774;
+  line-height: 1.4;
+}
+
+.summaryEmpty {
+  font-size: 14px;
+  color: #9b9a97;
+  font-style: italic;
+}
+
+.summaryActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f1f0;
+}
+
+.editButton {
+  background: #f7f6f3;
+  border: 1px solid #e3e2e0;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #37352f;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.editButton:hover {
+  background: #f1f1f0;
+}
+
+.optionalField {
+  margin-bottom: 12px;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #37352f;
+  margin-bottom: 4px;
+}
+
+.optionalLabel::after {
+  content: " (opsiyonel)";
+  color: #9b9a97;
+  font-weight: 400;
+}
+
 .inputContainer {
   display: flex;
   gap: 8px;
@@ -13,29 +101,50 @@
 }
 
 .input {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+  padding: 8px 12px;
+  border: 1px solid #e3e2e0;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.15s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2e75cc;
+  box-shadow: 0 0 0 3px rgba(46, 117, 204, 0.1);
 }
 
 .addButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 10px;
+  width: 36px;
+  min-width: 36px;
   height: 36px;
   background: #f7f6f3;
   border: 1px solid #e3e2e0;
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.15s;
+  flex-shrink: 0;
+  padding: 0;
 }
 
 .addButton:hover {
   background: #f1f1f0;
 }
 
+.activitiesList {
+  margin-bottom: 12px;
+}
+
 .list {
   list-style: none;
   padding-left: 0;
+  margin-top: 8px;
 }
 
 .listItem {
@@ -43,10 +152,13 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 4px;
+  padding: 4px 0;
 }
 
 .itemText {
   flex: 1;
+  font-size: 14px;
+  color: #37352f;
 }
 
 .removeButton {
@@ -58,8 +170,55 @@
   align-items: center;
   border-radius: 4px;
   transition: background 0.15s;
+  color: #e74c3c;
+  font-size: 12px;
 }
 
 .removeButton:hover {
+  background: #fdf2f2;
+}
+
+.formActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f1f0;
+}
+
+.saveButton {
+  padding: 10px 20px;
+  background: #2e75cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.saveButton:hover:not(:disabled) {
+  background: #1e65bc;
+}
+
+.saveButton:disabled {
+  background: #b3b3b1;
+  cursor: not-allowed;
+}
+
+.cancelButton {
+  padding: 10px 20px;
   background: #f7f6f3;
+  color: #37352f;
+  border: 1px solid #e3e2e0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.cancelButton:hover {
+  background: #f1f1f0;
 } 

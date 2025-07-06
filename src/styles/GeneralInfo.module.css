@@ -23,9 +23,6 @@
   margin-bottom: 12px;
   background: #ffffff;
   transition: all 0.2s ease;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
 }
 
 .summaryCard:hover {
@@ -58,7 +55,9 @@
 .summaryActions {
   display: flex;
   gap: 8px;
-  margin-left: 16px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f1f0;
 }
 
 .editButton {
