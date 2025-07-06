@@ -80,9 +80,20 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
                 {experienceList.map((exp, index) => (
                     <div className={styles.cvExpItem} key={index}>
                         <div className={styles.cvExpDetails}>
-                            <strong>{exp.position}</strong>{exp.company && `, ${exp.company}`}
+                            <div style={{ marginBottom: '4px' }}>
+                                <strong>{exp.position}</strong>{exp.company && `, ${exp.company}`}
+                            </div>
+                            {exp.duration && (
+                                <div style={{ color: '#787774', fontSize: '0.95rem', marginBottom: '4px' }}>
+                                    {exp.duration}
+                                </div>
+                            )}
+                            {exp.description && (
+                                <div style={{ color: '#9b9a97', fontSize: '0.9rem', lineHeight: '1.4' }}>
+                                    {exp.description}
+                                </div>
+                            )}
                         </div>
-                        <div className={styles.cvExpDuration}>{exp.duration}</div>
                     </div>
                 ))}
             </div>
