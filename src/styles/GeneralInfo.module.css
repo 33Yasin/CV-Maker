@@ -193,4 +193,68 @@
 
 .removeButton:hover {
   background: #fdf2f2;
+}
+
+.photoEditorSection {
+  margin-bottom: 18px;
+}
+
+.photoPreview {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.avatarEditorWrapper {
+  margin-bottom: 10px;
+}
+
+.fileInputWrapper {
+  width: 100%;
+  max-width: 220px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inputFile {
+  display: none;
+}
+
+.inputFileLabel {
+  display: inline-block;
+  padding: 8px 18px;
+  background: #2e75cc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: inherit;
+}
+.inputFileLabel:hover {
+  background: #1e65bc;
+}
+
+.selectedFileName {
+  font-size: 13px;
+  color: #37352f;
+  margin-left: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+  display: inline-block;
+}
+
+input[type="file"] {
+  width: 100%;
+  max-width: 220px;
+  box-sizing: border-box;
+  font-size: 14px;
+  padding: 4px 0;
 } 

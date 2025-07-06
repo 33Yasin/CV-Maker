@@ -12,10 +12,10 @@ function GeneralInfo({ userInfo, setUserInfo }) {
 
     const handleChange = (field, value) => {
         setTempUserInfo(prev => ({
-            ...prev,
+      ...prev,
             [field]: value,
-        }));
-    };
+    }));
+  };
 
     const canSave = () => {
         return tempUserInfo.firstName && tempUserInfo.lastName;
@@ -91,15 +91,27 @@ function GeneralInfo({ userInfo, setUserInfo }) {
                     </button>
                 </div>
             ) : (
-                <div style={{ marginTop: 8 }}>
-                    <input type="file" accept="image/*" onChange={handleImageChange} />
+                <div className={styles.fileInputWrapper} style={{ marginTop: 8 }}>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        id="photo-upload"
+                        className={styles.inputFile}
+                        onChange={handleImageChange}
+                    />
+                    <label htmlFor="photo-upload" className={styles.inputFileLabel}>
+                        Fotoğraf Seç
+                    </label>
+                    {selectedImage && (
+                        <span className={styles.selectedFileName}>{selectedImage.name}</span>
+                    )}
                 </div>
             )}
         </div>
     );
 
     const renderInfoForm = () => {
-        return (
+  return (
             <div className={styles.generalInfoItem}>
                 {renderPhotoEditor()}
                 {/* Required Fields */}
@@ -107,8 +119,8 @@ function GeneralInfo({ userInfo, setUserInfo }) {
                     <label className={`${styles.fieldLabel} ${styles.requiredLabel}`}>
                         Ad
                     </label>
-                    <input
-                        type="text"
+      <input
+        type="text"
                         className={styles.input}
                         placeholder="Adınızı girin"
                         value={tempUserInfo.firstName}
@@ -120,8 +132,8 @@ function GeneralInfo({ userInfo, setUserInfo }) {
                     <label className={`${styles.fieldLabel} ${styles.requiredLabel}`}>
                         Soyad
                     </label>
-                    <input
-                        type="text"
+      <input
+        type="text"
                         className={styles.input}
                         placeholder="Soyadınızı girin"
                         value={tempUserInfo.lastName}
@@ -134,8 +146,8 @@ function GeneralInfo({ userInfo, setUserInfo }) {
                     <label className={`${styles.fieldLabel} ${styles.optionalLabel}`}>
                         E-posta
                     </label>
-                    <input
-                        type="email"
+      <input
+        type="email"
                         className={styles.input}
                         placeholder="E-posta adresinizi girin"
                         value={tempUserInfo.email}
@@ -147,8 +159,8 @@ function GeneralInfo({ userInfo, setUserInfo }) {
                     <label className={`${styles.fieldLabel} ${styles.optionalLabel}`}>
                         Telefon
                     </label>
-                    <input
-                        type="tel"
+      <input
+        type="tel"
                         className={styles.input}
                         placeholder="Telefon numaranızı girin"
                         value={tempUserInfo.phone}
@@ -274,8 +286,8 @@ function GeneralInfo({ userInfo, setUserInfo }) {
             <h3 className={styles.title}>General Information</h3>
             
             {isEditing || (!userInfo.firstName && !userInfo.lastName) ? renderInfoForm() : renderSummaryCard()}
-        </div>
-    );
+    </div>
+  );
 }
 
 export default GeneralInfo;
