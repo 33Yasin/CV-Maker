@@ -9,8 +9,34 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
                     {userInfo.firstName} {userInfo.lastName}
                 </div>
                 <div className={styles.cvContact}>
-                    {userInfo.email && <span>{userInfo.email}</span>}
+                    {userInfo.email && (
+                        <span>
+                            {userInfo.email.startsWith('http') ? (
+                                <a href={userInfo.email} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
+                                    {userInfo.email}
+                                </a>
+                            ) : (
+                                <a href={`mailto:${userInfo.email}`} className={styles.contactLink}>
+                                    {userInfo.email}
+                                </a>
+                            )}
+                        </span>
+                    )}
                     {userInfo.phone && <span>{userInfo.phone}</span>}
+                    {userInfo.linkedin && (
+                        <span>
+                            <a href={userInfo.linkedin} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
+                                {userInfo.linkedin}
+                            </a>
+                        </span>
+                    )}
+                    {userInfo.github && (
+                        <span>
+                            <a href={userInfo.github} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
+                                {userInfo.github}
+                            </a>
+                        </span>
+                    )}
                 </div>
             </div>
 

@@ -17,6 +17,8 @@ function App() {
     lastName: '',
     email: '',
     phone: '',
+    linkedin: '',
+    github: '',
   });
   
   const [educationList, setEducationList] = useState([]);

@@ -38,6 +38,17 @@
     font-weight: 400;
 }
 
+.contactLink {
+    color: #2e75cc;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.contactLink:hover {
+    color: #1e65bc;
+    text-decoration: underline;
+}
+
 .cvSection {
     margin-bottom: 36px;
     page-break-inside: avoid;
