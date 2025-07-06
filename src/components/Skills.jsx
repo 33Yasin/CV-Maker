@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from '../styles/Skills.module.css';
 
 function Skills({ skills, setSkills }) {
   const [input, setInput] = useState('');
@@ -16,31 +17,20 @@ function Skills({ skills, setSkills }) {
   };
 
   return (
-    <div>
-      <h3>Skills</h3>
-      <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+    <div className={styles.container}>
+      <h3 className={styles.title}>Skills</h3>
+      <div className={styles.inputContainer}>
         <input
           type="text"
           value={input}
           onChange={e => setInput(e.target.value)}
           placeholder="Add a skill"
-          style={{ flex: 1 }}
+          className={styles.input}
         />
         <button
           type="button"
           onClick={handleAdd}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '0 10px',
-            height: 36,
-            background: '#f7f6f3',
-            border: '1px solid #e3e2e0',
-            borderRadius: 6,
-            cursor: 'pointer',
-            transition: 'background 0.15s',
-          }}
+          className={styles.addButton}
           title="Add"
         >
           <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -49,23 +39,14 @@ function Skills({ skills, setSkills }) {
           </svg>
         </button>
       </div>
-      <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+      <ul className={styles.list}>
         {skills.map((skill, idx) => (
-          <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-            <span style={{ flex: 1 }}>{skill}</span>
+          <li key={idx} className={styles.listItem}>
+            <span className={styles.itemText}>{skill}</span>
             <button
               type="button"
               onClick={() => handleRemove(skill)}
-              style={{
-                background: 'none',
-                border: 'none',
-                padding: 4,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                borderRadius: 4,
-                transition: 'background 0.15s',
-              }}
+              className={styles.removeButton}
               title="Remove"
               onMouseEnter={() => setHoveredIdx(idx)}
               onMouseLeave={() => setHoveredIdx(null)}

@@ -17,14 +17,35 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
             <div className={styles.cvSection}>
                 <div className={styles.cvSectionTitle}>Education</div>
                 {educationList.length === 0 && <div style={{color:'#888'}}>No education info provided.</div>}
-                {educationList.map((education, index) => (
-                    <div className={styles.cvEduItem} key={index}>
-                        <div className={styles.cvEduDetails}>
-                            <strong>{education.school}</strong>{education.degree && `, ${education.degree}`}
+                {educationList.map((education, index) => {
+                    // Format dates
+                    const formatDate = (dateString) => {
+                        if (!dateString) return '';
+                        const date = new Date(dateString + '-01');
+                        return date.toLocaleDateString('tr-TR', { year: 'numeric', month: 'short' });
+                    };
+
+                    const startDate = formatDate(education.startDate);
+                    const endDate = education.isOngoing ? 'Devam ediyor' : formatDate(education.endDate);
+                    const dateRange = startDate && (endDate || education.isOngoing) ? `${startDate} - ${endDate}` : '';
+
+                    return (
+                        <div className={styles.cvEduItem} key={index}>
+                            <div className={styles.cvEduDetails}>
+                                <div style={{ marginBottom: '4px' }}>
+                                    <strong>{education.school}</strong>
+                                    {education.degreeType && `, ${education.degreeType}`}
+                                </div>
+                                <div style={{ color: '#787774', fontSize: '0.95rem' }}>
+                                    {education.program}
+                                    {education.doubleMajor && ` / ${education.doubleMajor}`}
+                                    {education.gpa && ` • GPA: ${education.gpa}`}
+                                </div>
+                            </div>
+                            <div className={styles.cvEduYear}>{dateRange}</div>
                         </div>
-                        <div className={styles.cvEduYear}>{education.year}</div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             <div className={styles.cvSection}>

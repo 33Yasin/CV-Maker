@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from '../styles/Activities.module.css';
 
 function Activities({ activities, setActivities }) {
   const [input, setInput] = useState('');
@@ -16,31 +17,20 @@ function Activities({ activities, setActivities }) {
   };
 
   return (
-    <div>
-      <h3>Activities</h3>
-      <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+    <div className={styles.container}>
+      <h3 className={styles.title}>Activities</h3>
+      <div className={styles.inputContainer}>
         <input
           type="text"
           value={input}
           onChange={e => setInput(e.target.value)}
           placeholder="Add an activity"
-          style={{ flex: 1 }}
+          className={styles.input}
         />
         <button
           type="button"
           onClick={handleAdd}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '0 10px',
-            height: 36,
-            background: '#f7f6f3',
-            border: '1px solid #e3e2e0',
-            borderRadius: 6,
-            cursor: 'pointer',
-            transition: 'background 0.15s',
-          }}
+          className={styles.addButton}
           title="Add"
         >
           <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -49,23 +39,14 @@ function Activities({ activities, setActivities }) {
           </svg>
         </button>
       </div>
-      <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+      <ul className={styles.list}>
         {activities.map((activity, idx) => (
-          <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-            <span style={{ flex: 1 }}>{activity}</span>
+          <li key={idx} className={styles.listItem}>
+            <span className={styles.itemText}>{activity}</span>
             <button
               type="button"
               onClick={() => handleRemove(activity)}
-              style={{
-                background: 'none',
-                border: 'none',
-                padding: 4,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                borderRadius: 4,
-                transition: 'background 0.15s',
-              }}
+              className={styles.removeButton}
               title="Remove"
               onMouseEnter={() => setHoveredIdx(idx)}
               onMouseLeave={() => setHoveredIdx(null)}

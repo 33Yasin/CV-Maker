@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import GeneralInfo from './components/GeneralInfo';
 import Education from './components/Education';
 import Experience from './components/Experience';
@@ -33,6 +35,8 @@ function App() {
     certifications: false
   });
 
+  const cvRef = useRef(null);
+
   const toggleSection = (section) => {
     setExpandedSections(prev => {
       const newState = {};
@@ -44,6 +48,46 @@ function App() {
       newState[section] = !prev[section];
       return newState;
     });
+  };
+
+  const downloadCV = async () => {
+    if (!cvRef.current) return;
+
+    try {
+      // Capture the CV component with high quality
+      const canvas = await html2canvas(cvRef.current, {
+        scale: 3, // High quality
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        width: 800,
+        height: 1131,
+        scrollX: 0,
+        scrollY: 0,
+      });
+
+      // Create PDF with A4 dimensions
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'pt', 'a4');
+      
+      // A4 dimensions in points: 595.28 x 841.89
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      
+      // Calculate scaling to fit the image properly
+      const imgWidth = 800;
+      const imgHeight = 1131;
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      
+      const imgX = (pdfWidth - imgWidth * ratio) / 2;
+      const imgY = (pdfHeight - imgHeight * ratio) / 2;
+
+      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      pdf.save('my-cv.pdf');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('Error generating PDF. Please try again.');
+    }
   };
 
   return (
@@ -120,18 +164,43 @@ function App() {
             </div>
           )}
         </div>
+
+        <div className="download-section" style={{ marginTop: '20px' }}>
+          <button 
+            onClick={downloadCV}
+            className="download-button"
+            style={{
+              width: '100%',
+              padding: '12px 16px',
+              background: '#2e75cc',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '14px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              transition: 'background 0.15s ease',
+            }}
+            onMouseEnter={(e) => e.target.style.background = '#1e65bc'}
+            onMouseLeave={(e) => e.target.style.background = '#2e75cc'}
+          >
+            📄 Download CV as PDF
+          </button>
+        </div>
       </div>
 
       <div className="cv-preview-container">
         <div className="cv-a4-wrapper">
-          <CVPreview 
-            userInfo={userInfo} 
-            educationList={educationList} 
-            experienceList={experienceList}
-            skills={skills}
-            activities={activities}
-            certifications={certifications}
-          />
+          <div ref={cvRef}>
+            <CVPreview 
+              userInfo={userInfo} 
+              educationList={educationList} 
+              experienceList={experienceList}
+              skills={skills}
+              activities={activities}
+              certifications={certifications}
+            />
+          </div>
         </div>
       </div>
     </div>
