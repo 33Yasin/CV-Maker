@@ -58,35 +58,37 @@ function App() {
     if (!cvRef.current) return;
 
     try {
-      // Capture the CV component with high quality
+      // Fontların yüklenmesini bekle
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+
+      // PDF boyutunu al
+      const pdf = new jsPDF('p', 'pt', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+
+      // Canvas'ı PDF boyutunda oluştur
       const canvas = await html2canvas(cvRef.current, {
-        scale: 3, // High quality
+        scale: 3,
         useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#ffffff',
-        width: 800,
-        height: 1131,
+        backgroundColor: '#fff',
+        width: pdfWidth,
+        height: pdfHeight,
         scrollX: 0,
         scrollY: 0,
       });
 
-      // Create PDF with A4 dimensions
       const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'pt', 'a4');
-      
-      // A4 dimensions in points: 595.28 x 841.89
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      
-      // Calculate scaling to fit the image properly
-      const imgWidth = 800;
-      const imgHeight = 1131;
-      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-      
-      const imgX = (pdfWidth - imgWidth * ratio) / 2;
-      const imgY = (pdfHeight - imgHeight * ratio) / 2;
 
-      pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+      pdf.addImage(
+        imgData,
+        'PNG',
+        0,
+        0,
+        pdfWidth,
+        pdfHeight
+      );
       pdf.save('my-cv.pdf');
     } catch (error) {
       console.error('Error generating PDF:', error);

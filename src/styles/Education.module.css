@@ -79,10 +79,16 @@
 
 .requiredField {
   margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .optionalField {
   margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .fieldLabel {
@@ -123,9 +129,23 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  align-items: center;
 }
 
 .dateInput {
+  width: 100%;
+}
+
+/* Eğer özel bir input class'ı yoksa, .requiredField ve .dateContainer içindeki input'lara da genişlik eklenebilir */
+.requiredField input[type="text"],
+.requiredField .dateMonthPicker,
+.requiredField .react-datepicker-wrapper,
+.requiredField select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dateContainer > div {
   width: 100%;
 }
 
