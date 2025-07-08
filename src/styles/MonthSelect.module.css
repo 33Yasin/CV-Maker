@@ -1,0 +1,37 @@
+.monthSelect {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 2px;
+}
+
+.select {
+  width: 110px;
+  height: 36px;
+  font-size: 1.1rem;
+  border: 1px solid #e3e2e0;
+  border-radius: 8px;
+  background: #fff;
+  color: #222;
+  padding: 0 10px;
+  outline: none;
+  transition: border 0.15s;
+}
+.select:focus {
+  border: 1.5px solid #6c63ff;
+}
+
+@media (max-width: 600px) {
+  .select {
+    height: 44px;
+    font-size: 1.05rem;
+    width: 120px;
+  }
+} 

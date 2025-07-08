@@ -159,6 +159,25 @@ button:active {
   background-color: #e9e9e8;
 }
 
+.download-button {
+  width: 100%;
+  height: 48px;
+  background: #fff;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(46,117,204,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+  padding: 0;
+}
+.download-button:hover {
+  background: #f1f1f0;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1200px) {
   .sidebar {

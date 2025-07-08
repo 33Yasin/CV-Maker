@@ -62,7 +62,7 @@ function Experience({ experienceList, setExperienceList }) {
     };
 
     const renderExperienceForm = (exp, index) => {
-        return (
+    return (
             <div key={index} className={styles.experienceItem}>
                 {/* Required Fields */}
                 <div className={styles.requiredField}>

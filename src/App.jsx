@@ -10,6 +10,7 @@ import Activities from './components/Activities';
 import Certifications from './components/Certifications';
 import Navbar from './components/Navbar';
 import './App.css';
+import pdfGif from './assets/pdf.gif';
 
 function App() {
   // Kullanıcı bilgilerini tutan state
@@ -174,22 +175,10 @@ function App() {
             <button 
               onClick={downloadCV}
               className="download-button"
-              style={{
-                width: '100%',
-                padding: '12px 16px',
-                background: '#2e75cc',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '14px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                transition: 'background 0.15s ease',
-              }}
-              onMouseEnter={(e) => e.target.style.background = '#1e65bc'}
-              onMouseLeave={(e) => e.target.style.background = '#2e75cc'}
+              title="PDF indir"
             >
-              📄 Download CV as PDF
+              <img src={pdfGif} alt="PDF indir" style={{ width: 32, height: 32, display: 'block' }} />
+              <span style={{ fontSize: 15, fontWeight: 500, color: '#2e75cc', fontFamily: 'Inter, sans-serif', letterSpacing: 0.1 }}>{'Download as PDF'}</span>
             </button>
           </div>
         </div>

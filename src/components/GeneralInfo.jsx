@@ -125,7 +125,7 @@ function GeneralInfo({ userInfo, setUserInfo }) {
                         placeholder="Adınızı girin"
                         value={tempUserInfo.firstName}
                         onChange={(e) => handleChange('firstName', e.target.value)}
-                    />
+      />
                 </div>
 
                 <div className={styles.requiredField}>
@@ -138,7 +138,7 @@ function GeneralInfo({ userInfo, setUserInfo }) {
                         placeholder="Soyadınızı girin"
                         value={tempUserInfo.lastName}
                         onChange={(e) => handleChange('lastName', e.target.value)}
-                    />
+      />
                 </div>
 
                 {/* Optional Fields */}
@@ -152,7 +152,7 @@ function GeneralInfo({ userInfo, setUserInfo }) {
                         placeholder="E-posta adresinizi girin"
                         value={tempUserInfo.email}
                         onChange={(e) => handleChange('email', e.target.value)}
-                    />
+      />
                 </div>
 
                 <div className={styles.optionalField}>

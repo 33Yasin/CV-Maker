@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import styles from '../styles/Education.module.css';
+import YearSelect from './YearSelect';
+import MonthSelect from './MonthSelect';
+import DateMonthPicker from './DateMonthPicker';
 
 function Education({ educationList, setEducationList }) {
     const [savedIndices, setSavedIndices] = useState(new Set());
@@ -17,7 +20,13 @@ function Education({ educationList, setEducationList }) {
             updatedList[index].endDate = '';
         }
         setEducationList(updatedList);
-    }
+    };
+
+    const handleDateMonthChange = (index, field, value) => {
+        const updatedList = [...educationList];
+        updatedList[index][field] = value;
+        setEducationList(updatedList);
+    };
 
     const addNewEducation = () => {
         const newEducation = {
@@ -120,14 +129,16 @@ function Education({ educationList, setEducationList }) {
 
                 <div className={styles.requiredField}>
                     <label className={`${styles.fieldLabel} ${styles.requiredLabel}`}>
-                        Başlama Tarihi
+                        Başlangıç Tarihi
                     </label>
-                    <input
-                        type="month"
-                        className={styles.input}
-                        value={edu.startDate}
-                        onChange={(e) => handleChange(index, 'startDate', e.target.value)}
-                    />
+                    <div style={{ display: 'flex', gap: 8 }}>
+                        <DateMonthPicker
+                            value={edu.startDate}
+                            onChange={val => handleDateMonthChange(index, 'startDate', val)}
+                            label={null}
+                            disabled={false}
+                        />
+                    </div>
                 </div>
 
                 <div className={styles.requiredField}>
@@ -135,13 +146,14 @@ function Education({ educationList, setEducationList }) {
                         Mezuniyet / Bitiş Tarihi
                     </label>
                     <div className={styles.dateContainer}>
-                        <input
-                            type="month"
-                            className={`${styles.input} ${styles.dateInput}`}
-                            value={edu.endDate}
-                            onChange={(e) => handleChange(index, 'endDate', e.target.value)}
-                            disabled={edu.isOngoing}
-                        />
+                        <div style={{ display: 'flex', gap: 8 }}>
+                            <DateMonthPicker
+                                value={edu.endDate}
+                                onChange={val => handleDateMonthChange(index, 'endDate', val)}
+                                label={null}
+                                disabled={edu.isOngoing}
+                            />
+                        </div>
                         <div className={styles.checkboxContainer}>
                             <input
                                 type="checkbox"
