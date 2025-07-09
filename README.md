@@ -1,5 +1,11 @@
 # CV Maker
 
+
+
+https://github.com/user-attachments/assets/81abf0d0-8fdf-4822-8a35-22b963bd2dc3
+
+
+
 ## Özellikler / Features
 - Modern, duyarlı (responsive) CV oluşturucu
 - PDF olarak dışa aktarım (A4 uyumlu)
