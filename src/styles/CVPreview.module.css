@@ -43,11 +43,19 @@
 
 .cvContact {
     display: flex;
-    gap: 32px;
+    flex-direction: column;
+    gap: 4px;
     margin-top: 12px;
     font-size: 1rem;
     color: #787774;
     font-weight: 400;
+}
+
+.cvContactRow {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    align-items: center;
 }
 
 .contactLink {

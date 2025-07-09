@@ -1,12 +1,69 @@
-# React + Vite
+# CV Maker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Özellikler / Features
+- Modern, duyarlı (responsive) CV oluşturucu
+- PDF olarak dışa aktarım (A4 uyumlu)
+- Fotoğraf yükleme ve kırpma (react-easy-crop ile)
+- Türkçe arayüz ve form alanları
+- Tüm cihazlarda (masaüstü, tablet, mobil) sorunsuz görünüm
+- Vercel ile kolay deploy
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Kurulum / Installation
 
-## Expanding the ESLint configuration
+1. **Depoyu klonlayın / Clone the repo:**
+   ```bash
+   git clone https://github.com/kullaniciadi/cv-maker.git
+   cd cv-maker/CV-Maker
+   ```
+2. **Bağımlılıkları yükleyin / Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Geliştirme sunucusunu başlatın / Start dev server:**
+   ```bash
+   npm run dev
+   ```
+   Ardından tarayıcınızda [http://localhost:5173](http://localhost:5173) adresini açın.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Kullanım / Usage
+
+- Sol panelden bilgilerinizi girin (Genel Bilgi, Eğitim, İş Deneyimi, Yetenekler, Aktiviteler, Sertifikalar).
+- Fotoğrafınızı yükleyip kırpabilirsiniz.
+- "PDF Olarak İndir" butonuyla A4 uyumlu PDF çıktısı alabilirsiniz.
+- Tüm metinler ve başlıklar Türkçedir.
+
+---
+
+## Özelleştirme / Customization
+- `src/styles/` klasöründeki CSS modülleri ile stilleri değiştirebilirsiniz.
+- Bileşenler `src/components/` klasöründedir.
+- Türkçe metinleri değiştirmek için ilgili component dosyalarını düzenleyin.
+
+---
+
+## Deploy (Vercel)
+
+1. Vercel hesabınızla projeyi bağlayın.
+2. Node.js 18+ kullanın.
+3. Tüm bağımlılıkların (`react-easy-crop` dahil) `package.json`'da olduğundan emin olun.
+4. Vercel otomatik olarak build ve deploy edecektir.
+
+---
+
+## PDF Export Notları / PDF Export Notes
+- PDF çıktısı, ekranda gördüğünüzle birebir aynı olacak şekilde optimize edilmiştir.
+- Fotoğraf ve içerik taşması, kırpılması gibi sorunlar çözülmüştür.
+
+---
+
+## Katkı / Contributing
+Pull request ve issue'larınızı bekliyoruz!
+
+---
+
+## Lisans / License
+MIT
