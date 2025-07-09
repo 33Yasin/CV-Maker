@@ -1,22 +1,48 @@
 // GeneralInfo.jsx
 // Component for collecting and editing the user's general information (name, email, phone, LinkedIn, GitHub, photo)
 
-import React, { useRef, useState } from 'react';
-import AvatarEditor from 'react-avatar-editor';
+import React, { useRef, useState, useCallback } from 'react';
+import Cropper from 'react-easy-crop';
 import styles from '../styles/GeneralInfo.module.css';
+
+function getCroppedImg(imageSrc, crop, zoom, aspect = 1) {
+  // Utility to crop the image using canvas
+  return new Promise((resolve, reject) => {
+    const image = new window.Image();
+    image.src = imageSrc;
+    image.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const size = Math.min(image.width, image.height);
+      canvas.width = crop.width;
+      canvas.height = crop.height;
+      ctx.drawImage(
+        image,
+        crop.x,
+        crop.y,
+        crop.width,
+        crop.height,
+        0,
+        0,
+        crop.width,
+        crop.height
+      );
+      resolve(canvas.toDataURL('image/jpeg'));
+    };
+    image.onerror = reject;
+  });
+}
 
 function GeneralInfo({ userInfo, setUserInfo }) {
   // --- State for photo upload and cropping ---
   const [isEditing, setIsEditing] = useState(!userInfo.firstName && !userInfo.lastName);
   const [tempUserInfo, setTempUserInfo] = useState({ ...userInfo });
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [scale, setScale] = useState(1.1);
-  const [editorRef, setEditorRef] = useState(null);
-  const [cropped, setCropped] = useState(userInfo.photo || null);
   const [photo, setPhoto] = useState(userInfo.photo || null);
-  const [cropMode, setCropMode] = useState(false);
-  const [crop, setCrop] = useState({ x: 0, y: 0, size: 100 });
-  const [tempPhoto, setTempPhoto] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [showCrop, setShowCrop] = useState(false);
   const fileInputRef = useRef();
 
   // --- Handle file input change (when user selects a photo) ---
@@ -25,28 +51,32 @@ function GeneralInfo({ userInfo, setUserInfo }) {
     if (file) {
       const reader = new FileReader();
       reader.onload = (ev) => {
-        setTempPhoto(ev.target.result);
-        setCropMode(true);
+        setSelectedImage(ev.target.result);
+        setShowCrop(true);
       };
       reader.readAsDataURL(file);
     }
   };
 
   // --- Handle cropping and saving the photo ---
-  const handleCrop = () => {
-    if (editorRef) {
-      const canvas = editorRef.getImageScaledToCanvas().toDataURL();
-      setCropped(canvas);
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+  const handleCropSave = async () => {
+    if (selectedImage && croppedAreaPixels) {
+      const croppedImg = await getCroppedImg(selectedImage, croppedAreaPixels, zoom);
+      setPhoto(croppedImg);
+      setTempUserInfo((prev) => ({ ...prev, photo: croppedImg }));
+      setShowCrop(false);
       setSelectedImage(null);
     }
   };
 
   // --- Handle input changes for text fields ---
-  const handleChange = (field, value) => {
-    setTempUserInfo(prev => ({
-      ...prev,
-      [field]: value,
-    }));
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTempUserInfo((prev) => ({ ...prev, [name]: value }));
   };
 
   // --- Main render ---
@@ -56,20 +86,20 @@ function GeneralInfo({ userInfo, setUserInfo }) {
 
   const saveInfo = () => {
     if (canSave()) {
-      setUserInfo({ ...tempUserInfo, photo: cropped });
+      setUserInfo({ ...tempUserInfo, photo: photo });
       setIsEditing(false);
     }
   };
 
   const editInfo = () => {
     setTempUserInfo({ ...userInfo });
-    setCropped(userInfo.photo || null);
+    setPhoto(userInfo.photo || null);
     setIsEditing(true);
   };
 
   const cancelEdit = () => {
     setTempUserInfo({ ...userInfo });
-    setCropped(userInfo.photo || null);
+    setPhoto(userInfo.photo || null);
     setIsEditing(false);
   };
 
@@ -85,63 +115,74 @@ function GeneralInfo({ userInfo, setUserInfo }) {
     };
     setUserInfo(emptyUserInfo);
     setTempUserInfo(emptyUserInfo);
-    setCropped(null);
+    setPhoto(null);
     setIsEditing(true);
   };
 
   const renderPhotoEditor = () => (
     <div className={styles.photoEditorSection}>
       <label className={styles.fieldLabel}>Fotoğraf (opsiyonel)</label>
-      {cropped && (
-        <div className={styles.photoPreview}>
-          <img src={cropped} alt="Profil" style={{ width: 96, height: 96, borderRadius: '50%', objectFit: 'cover', border: '1px solid #e3e2e0' }} />
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+        {/* Photo or Cropper box */}
+        <div style={{ width: 120, height: 120, position: 'relative', background: '#f7f6f3', borderRadius: 8, border: '1px solid #e3e2e0', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 8 }}>
+          {showCrop && selectedImage ? (
+            <div style={{ width: 120, height: 120, position: 'relative' }}>
+              <Cropper
+                image={selectedImage}
+                crop={crop}
+                zoom={zoom}
+                aspect={1}
+                onCropChange={setCrop}
+                onZoomChange={setZoom}
+                onCropComplete={onCropComplete}
+                cropShape="round"
+                showGrid={false}
+                style={{ containerStyle: { borderRadius: '8px' } }}
+              />
+            </div>
+          ) : photo ? (
+            <img src={photo} alt="Profil" style={{ width: 96, height: 96, borderRadius: '50%', objectFit: 'cover', border: '1px solid #e3e2e0' }} />
+          ) : (
+            <div style={{ width: 96, height: 96, borderRadius: '50%', background: '#e3e2e0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#aaa', fontSize: 32 }}>+</div>
+          )}
         </div>
-      )}
-      {selectedImage ? (
-        <div className={styles.avatarEditorWrapper}>
-          <AvatarEditor
-            ref={setEditorRef}
-            image={selectedImage}
-            width={120}
-            height={120}
-            border={30}
-            borderRadius={60}
-            color={[255,255,255,0.6]}
-            scale={scale}
-            rotate={0}
-          />
-          <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <input
-              type="range"
-              min={1}
-              max={2}
-              step={0.01}
-              value={scale}
-              onChange={e => setScale(parseFloat(e.target.value))}
-            />
-            <span style={{ fontSize: 12, color: '#888' }}>Yakınlaştır</span>
-          </div>
-          <button type="button" className={styles.saveButton} style={{ marginTop: 8 }} onClick={handleCrop}>
-            Kırp &amp; Kaydet
-          </button>
-        </div>
-      ) : (
-        <div className={styles.fileInputWrapper} style={{ marginTop: 8 }}>
+        {/* File input always visible below photo/cropper */}
+        <div className={styles.fileInputWrapper} style={{ marginTop: 0, width: '100%' }}>
           <input
             type="file"
             accept="image/*"
             id="photo-upload"
             className={styles.inputFile}
             onChange={handlePhotoChange}
+            ref={fileInputRef}
           />
-          <label htmlFor="photo-upload" className={styles.inputFileLabel}>
+          <label htmlFor="photo-upload" className={styles.inputFileLabel} style={{ width: '100%', textAlign: 'center' }}>
             Fotoğraf Seç
           </label>
-          {selectedImage && (
-            <span className={styles.selectedFileName}>{selectedImage.name}</span>
-          )}
         </div>
-      )}
+        {/* Crop controls only if cropping */}
+        {showCrop && selectedImage && (
+          <>
+            <input
+              type="range"
+              min={1}
+              max={3}
+              step={0.01}
+              value={zoom}
+              onChange={e => setZoom(Number(e.target.value))}
+              style={{ width: 120, marginTop: 8 }}
+            />
+            <div style={{ display: 'flex', gap: 8, marginTop: 8, justifyContent: 'center' }}>
+              <button type="button" className={styles.saveButton} onClick={handleCropSave}>
+                Kırp & Kaydet
+              </button>
+              <button type="button" className={styles.cancelButton} onClick={() => setShowCrop(false)}>
+                İptal
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 
@@ -159,7 +200,8 @@ function GeneralInfo({ userInfo, setUserInfo }) {
             className={styles.input}
             placeholder="Adınızı girin"
             value={tempUserInfo.firstName}
-            onChange={(e) => handleChange('firstName', e.target.value)}
+            onChange={handleChange}
+            name="firstName"
           />
         </div>
 
@@ -172,7 +214,8 @@ function GeneralInfo({ userInfo, setUserInfo }) {
             className={styles.input}
             placeholder="Soyadınızı girin"
             value={tempUserInfo.lastName}
-            onChange={(e) => handleChange('lastName', e.target.value)}
+            onChange={handleChange}
+            name="lastName"
           />
         </div>
 
@@ -186,7 +229,8 @@ function GeneralInfo({ userInfo, setUserInfo }) {
             className={styles.input}
             placeholder="E-posta adresinizi girin"
             value={tempUserInfo.email}
-            onChange={(e) => handleChange('email', e.target.value)}
+            onChange={handleChange}
+            name="email"
           />
         </div>
 
@@ -199,7 +243,8 @@ function GeneralInfo({ userInfo, setUserInfo }) {
             className={styles.input}
             placeholder="Telefon numaranızı girin"
             value={tempUserInfo.phone}
-            onChange={(e) => handleChange('phone', e.target.value)}
+            onChange={handleChange}
+            name="phone"
           />
         </div>
 
@@ -212,7 +257,8 @@ function GeneralInfo({ userInfo, setUserInfo }) {
             className={styles.input}
             placeholder="LinkedIn profil linkinizi girin"
             value={tempUserInfo.linkedin}
-            onChange={(e) => handleChange('linkedin', e.target.value)}
+            onChange={handleChange}
+            name="linkedin"
           />
         </div>
 
@@ -225,7 +271,8 @@ function GeneralInfo({ userInfo, setUserInfo }) {
             className={styles.input}
             placeholder="GitHub profil linkinizi girin"
             value={tempUserInfo.github}
-            onChange={(e) => handleChange('github', e.target.value)}
+            onChange={handleChange}
+            name="github"
           />
         </div>
 
