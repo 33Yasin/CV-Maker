@@ -382,3 +382,25 @@ button:active {
     padding-right: 1vw !important;
   }
 }
+
+.pdf-export .cv-a4-wrapper,
+.pdf-export .cv-a4-wrapper > div {
+  width: 800px !important;
+  min-width: 800px !important;
+  max-width: 800px !important;
+  height: 1131px !important;
+  min-height: 1131px !important;
+  max-height: 1131px !important;
+  transform: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  background: #fff !important;
+}
+.pdf-export .cv-a4-wrapper > div {
+  font-size: 1rem !important;
+  padding: 0 !important;
+}
+.pdf-export .cv-previewPages {
+  font-size: 1rem !important;
+}

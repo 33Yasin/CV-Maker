@@ -58,18 +58,26 @@ function App() {
     if (!cvRef.current) return;
 
     try {
+      // PDF export için body'ye özel class ekle
+      document.body.classList.add('pdf-export');
+
       // Fontların yüklenmesini bekle
       if (document.fonts && document.fonts.ready) {
         await document.fonts.ready;
       }
 
-      // PDF boyutunu al
-      const pdf = new jsPDF('p', 'pt', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
+      // Gerçek içerik yüksekliğini ölç
+      const cvElement = cvRef.current;
+      const realWidth = 800; // A4 genişliği
+      const realHeight = cvElement.scrollHeight; // Dinamik yükseklik
 
-      // Canvas'ı PDF boyutunda oluştur
-      const canvas = await html2canvas(cvRef.current, {
+      // PDF boyutunu ayarla (A4 genişliği, içerik yüksekliği)
+      const pdf = new jsPDF('p', 'pt', [realWidth, realHeight]);
+      const pdfWidth = realWidth;
+      const pdfHeight = realHeight;
+
+      // Canvas'ı gerçek boyutta oluştur
+      const canvas = await html2canvas(cvElement, {
         scale: 3,
         useCORS: true,
         backgroundColor: '#fff',
@@ -93,6 +101,9 @@ function App() {
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('Error generating PDF. Please try again.');
+    } finally {
+      // PDF export class'ını kaldır
+      document.body.classList.remove('pdf-export');
     }
   };
 
