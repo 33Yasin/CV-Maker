@@ -58,7 +58,7 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
         </div>
     ) });
     // Education
-    contentBlocks.push({ type: 'sectionTitle', jsx: <div className={styles.cvSectionTitle} key="edu-title">Education</div> });
+    contentBlocks.push({ type: 'sectionTitle', jsx: <div className={styles.cvSectionTitle} key="edu-title">EĞİTİM</div> });
     if (educationList.length === 0) {
         contentBlocks.push({ type: 'empty', jsx: <div style={{color:'#888'}} key="edu-empty">No education info provided.</div> });
     } else {
@@ -93,7 +93,7 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
         });
     }
     // Experience
-    contentBlocks.push({ type: 'sectionTitle', jsx: <div className={styles.cvSectionTitle} key="exp-title">Work Experience</div> });
+    contentBlocks.push({ type: 'sectionTitle', jsx: <div className={styles.cvSectionTitle} key="exp-title">İŞ DENEYİMİ</div> });
     if (experienceList.length === 0) {
         contentBlocks.push({ type: 'empty', jsx: <div style={{color:'#888'}} key="exp-empty">No work experience provided.</div> });
     } else {
@@ -126,7 +126,7 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
     if (skills && skills.length > 0) {
         contentBlocks.push({
             type: 'sectionTitle',
-            jsx: <div className={styles.cvSectionTitle} key="skills-title">Skills</div>
+            jsx: <div className={styles.cvSectionTitle} key="skills-title">YETENEKLER</div>
         });
         contentBlocks.push({
             type: 'skills',
@@ -143,7 +143,7 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
     if (activities && activities.length > 0) {
         contentBlocks.push({
             type: 'sectionTitle',
-            jsx: <div className={styles.cvSectionTitle} key="activities-title">Activities</div>
+            jsx: <div className={styles.cvSectionTitle} key="activities-title">AKTİVİTELER</div>
         });
         contentBlocks.push({
             type: 'activities',
@@ -160,7 +160,7 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
     if (certifications && certifications.length > 0) {
         contentBlocks.push({
             type: 'sectionTitle',
-            jsx: <div className={styles.cvSectionTitle} key="certs-title">Certifications</div>
+            jsx: <div className={styles.cvSectionTitle} key="certs-title">SERTİFİKALAR</div>
         });
         contentBlocks.push({
             type: 'certifications',
