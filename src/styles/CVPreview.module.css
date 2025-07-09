@@ -1,7 +1,7 @@
 .cvContainer {
     max-width: 800px;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 32px auto;
     padding: 48px 56px;
     background: #ffffff;
     color: #37352f;
@@ -9,8 +9,20 @@
     min-height: 1123px;
     box-sizing: border-box;
     page-break-inside: auto;
-    overflow: visible;
+    overflow: hidden;
     line-height: 1.6;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e3e2e0;
+    position: relative;
+}
+
+/* Sayfalar alt alta gelsin */
+.cvPreviewPages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
 }
 
 .cvHeader {
