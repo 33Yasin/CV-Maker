@@ -1,7 +1,10 @@
+// YearStepper.jsx
+// Component for incrementing/decrementing a year value (used in date selection)
 import React from 'react';
 import styles from '../styles/YearStepper.module.css';
 
 function YearStepper({ value, onChange, min = 1950, max = new Date().getFullYear() + 8, label, disabled }) {
+  // State variables for the year value and min/max
   const handleDecrease = () => {
     if (!disabled && value > min) onChange(value - 1);
   };

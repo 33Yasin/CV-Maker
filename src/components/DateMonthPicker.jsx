@@ -1,3 +1,6 @@
+// DateMonthPicker.jsx
+// Component for picking a month and year (used in date selection for education/experience)
+
 import React from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import tr from 'date-fns/locale/tr';

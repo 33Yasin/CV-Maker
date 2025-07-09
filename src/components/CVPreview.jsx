@@ -1,3 +1,5 @@
+// CVPreview.jsx
+// Component for rendering the CV preview in A4 format, paginated and styled for export and display.
 import React, { useRef, useLayoutEffect, useState } from 'react';
 import styles from '../styles/CVPreview.module.css';
 

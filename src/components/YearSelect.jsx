@@ -1,3 +1,5 @@
+// YearSelect.jsx
+// Component for selecting a year from a dropdown (used in date selection)
 import React from 'react';
 import styles from '../styles/MonthSelect.module.css'; // Use same style for consistency
 

@@ -1,3 +1,6 @@
+// App.jsx
+// Main application component for the CV Maker. Handles all state, layout, and PDF export logic.
+
 import React, { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -13,7 +16,8 @@ import './App.css';
 import pdfGif from './assets/pdf.gif';
 
 function App() {
-  // Kullanıcı bilgilerini tutan state
+  // --- Main user info state ---
+  // Holds all general user information for the CV
   const [userInfo, setUserInfo] = useState({
     firstName: '',
     lastName: '',
@@ -23,13 +27,15 @@ function App() {
     github: '',
   });
   
+  // --- Section states for each CV part ---
   const [educationList, setEducationList] = useState([]);
   const [experienceList, setExperienceList] = useState([]);
   const [skills, setSkills] = useState([]);
   const [activities, setActivities] = useState([]);
   const [certifications, setCertifications] = useState([]);
 
-  // Dropdown sections state
+  // --- Sidebar dropdown state ---
+  // Controls which sidebar section is expanded
   const [expandedSections, setExpandedSections] = useState({
     general: false,
     education: false,
@@ -39,8 +45,10 @@ function App() {
     certifications: false
   });
 
+  // Ref for the CV preview (used for PDF export)
   const cvRef = useRef(null);
 
+  // Toggle which sidebar section is open
   const toggleSection = (section) => {
     setExpandedSections(prev => {
       const newState = {};
@@ -54,29 +62,31 @@ function App() {
     });
   };
 
+  // --- PDF Export Logic ---
+  // Exports the CV preview as a PDF using html2canvas and jsPDF
   const downloadCV = async () => {
     if (!cvRef.current) return;
 
     try {
-      // PDF export için body'ye özel class ekle
+      // Add a special class to the body to force A4 layout for PDF export
       document.body.classList.add('pdf-export');
 
-      // Fontların yüklenmesini bekle
+      // Wait for fonts to load before rendering
       if (document.fonts && document.fonts.ready) {
         await document.fonts.ready;
       }
 
-      // Gerçek içerik yüksekliğini ölç
+      // Measure the real height of the CV content for PDF export
       const cvElement = cvRef.current;
-      const realWidth = 800; // A4 genişliği
-      const realHeight = cvElement.scrollHeight; // Dinamik yükseklik
+      const realWidth = 800; // A4 width in px
+      const realHeight = cvElement.scrollHeight; // Dynamic height
 
-      // PDF boyutunu ayarla (A4 genişliği, içerik yüksekliği)
+      // Create a PDF with the real content height
       const pdf = new jsPDF('p', 'pt', [realWidth, realHeight]);
       const pdfWidth = realWidth;
       const pdfHeight = realHeight;
 
-      // Canvas'ı gerçek boyutta oluştur
+      // Render the CV as a canvas at the correct size
       const canvas = await html2canvas(cvElement, {
         scale: 3,
         useCORS: true,
@@ -89,6 +99,7 @@ function App() {
 
       const imgData = canvas.toDataURL('image/png');
 
+      // Add the image to the PDF and save
       pdf.addImage(
         imgData,
         'PNG',
@@ -102,19 +113,23 @@ function App() {
       console.error('Error generating PDF:', error);
       alert('Error generating PDF. Please try again.');
     } finally {
-      // PDF export class'ını kaldır
+      // Remove the export class after PDF is generated
       document.body.classList.remove('pdf-export');
     }
   };
 
+  // --- Main Render ---
+  // Layout: Sidebar (left) + CV Preview (right)
   return (
     <>
       <Navbar />
       <div className="app-container">
+        {/* Sidebar with all form sections */}
         <div className="sidebar">
+          {/* General Info Section */}
           <div className="section">
             <div className="section-header" onClick={() => toggleSection('general')}>
-              <h3>General Information</h3>
+              <h3>Genel Bilgiler</h3>
               <span className="toggle-icon">{expandedSections.general ? '▼' : '▶'}</span>
             </div>
             {expandedSections.general && (
@@ -124,9 +139,10 @@ function App() {
             )}
           </div>
 
+          {/* Education Section */}
           <div className="section">
             <div className="section-header" onClick={() => toggleSection('education')}>
-              <h3>Education</h3>
+              <h3>Eğitim</h3>
               <span className="toggle-icon">{expandedSections.education ? '▼' : '▶'}</span>
             </div>
             {expandedSections.education && (
@@ -136,9 +152,10 @@ function App() {
             )}
           </div>
 
+          {/* Work Experience Section */}
           <div className="section">
             <div className="section-header" onClick={() => toggleSection('experience')}>
-              <h3>Work Experience</h3>
+              <h3>İş Deneyimi</h3>
               <span className="toggle-icon">{expandedSections.experience ? '▼' : '▶'}</span>
             </div>
             {expandedSections.experience && (
@@ -148,9 +165,10 @@ function App() {
             )}
           </div>
 
+          {/* Skills Section */}
           <div className="section">
             <div className="section-header" onClick={() => toggleSection('skills')}>
-              <h3>Skills</h3>
+              <h3>Yetenekler</h3>
               <span className="toggle-icon">{expandedSections.skills ? '▼' : '▶'}</span>
             </div>
             {expandedSections.skills && (
@@ -160,9 +178,10 @@ function App() {
             )}
           </div>
 
+          {/* Activities Section */}
           <div className="section">
             <div className="section-header" onClick={() => toggleSection('activities')}>
-              <h3>Activities</h3>
+              <h3>Aktiviteler</h3>
               <span className="toggle-icon">{expandedSections.activities ? '▼' : '▶'}</span>
             </div>
             {expandedSections.activities && (
@@ -172,9 +191,10 @@ function App() {
             )}
           </div>
 
+          {/* Certifications Section */}
           <div className="section">
             <div className="section-header" onClick={() => toggleSection('certifications')}>
-              <h3>Certifications</h3>
+              <h3>Sertifikalar</h3>
               <span className="toggle-icon">{expandedSections.certifications ? '▼' : '▶'}</span>
             </div>
             {expandedSections.certifications && (
@@ -184,18 +204,20 @@ function App() {
             )}
           </div>
 
+          {/* PDF Download Button */}
           <div className="download-section" style={{ marginTop: '20px' }}>
             <button 
               onClick={downloadCV}
               className="download-button"
-              title="PDF indir"
+              title="PDF Olarak İndir"
             >
               <img src={pdfGif} alt="PDF indir" style={{ width: 32, height: 32, display: 'block' }} />
-              <span style={{ fontSize: 15, fontWeight: 500, color: '#2e75cc', fontFamily: 'Inter, sans-serif', letterSpacing: 0.1 }}>{'Download as PDF'}</span>
+              <span style={{ fontSize: 15, fontWeight: 500, color: '#2e75cc', fontFamily: 'Inter, sans-serif', letterSpacing: 0.1 }}>{'PDF Olarak İndir'}</span>
             </button>
           </div>
         </div>
 
+        {/* CV Preview Area */}
         <div className="cv-preview-container">
           <div className="cv-a4-wrapper">
             <div ref={cvRef}>

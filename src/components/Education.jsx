@@ -1,3 +1,6 @@
+// Education.jsx
+// Component for managing and editing the user's education history (school, degree, program, GPA, dates, etc.)
+
 import React, { useState } from "react";
 import styles from '../styles/Education.module.css';
 import YearSelect from './YearSelect';
@@ -273,7 +276,7 @@ function Education({ educationList, setEducationList }) {
 
     return (
         <div className={styles.container}>
-            <h3 className={styles.title}>Education</h3>
+            <h3 className={styles.title}>Eğitim</h3>
             
             {/* Render all education items */}
             {educationList.map((edu, index) => {

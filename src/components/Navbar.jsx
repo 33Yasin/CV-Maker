@@ -1,3 +1,6 @@
+// Navbar.jsx
+// Component for rendering the top navigation bar of the application
+
 import React from 'react';
 import styles from '../styles/Navbar.module.css';
 import logo from '../assets/logo.svg';

@@ -1,3 +1,6 @@
+// Skills.jsx
+// Component for managing and editing the user's skills list
+
 import React, { useState } from 'react';
 import styles from '../styles/Skills.module.css';
 
@@ -169,7 +172,7 @@ function Skills({ skills, setSkills }) {
 
     return (
         <div className={styles.container}>
-            <h3 className={styles.title}>Skills</h3>
+            <h3 className={styles.title}>Yetenekler</h3>
             
             {isEditing || skills.length === 0 ? renderSkillsForm() : renderSummaryCard()}
         </div>

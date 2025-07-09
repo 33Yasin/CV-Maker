@@ -1,3 +1,6 @@
+// MonthSelect.jsx
+// Component for selecting a month from a dropdown (used in date selection)
+
 import React from 'react';
 import styles from '../styles/MonthSelect.module.css';
 

@@ -1,3 +1,6 @@
+// Activities.jsx
+// Component for managing and editing the user's activities list
+
 import React, { useState } from 'react';
 import styles from '../styles/Activities.module.css';
 
@@ -169,7 +172,7 @@ function Activities({ activities, setActivities }) {
 
     return (
         <div className={styles.container}>
-            <h3 className={styles.title}>Activities</h3>
+            <h3 className={styles.title}>Aktiviteler</h3>
             
             {isEditing || activities.length === 0 ? renderActivitiesForm() : renderSummaryCard()}
         </div>

@@ -1,3 +1,6 @@
+// Experience.jsx
+// Component for managing and editing the user's work experience (company, position, duration, description, etc.)
+
 import React, { useState } from "react";
 import styles from '../styles/Experience.module.css';
 
@@ -180,7 +183,7 @@ function Experience({ experienceList, setExperienceList }) {
 
     return (
         <div className={styles.container}>
-            <h3 className={styles.title}>Work Experience</h3>
+            <h3 className={styles.title}>İş Deneyimi</h3>
             
             {/* Render all experience items */}
             {experienceList.map((exp, index) => {

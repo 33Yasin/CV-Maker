@@ -1,3 +1,6 @@
+// Certifications.jsx
+// Component for managing and editing the user's certifications list
+
 import React, { useState } from 'react';
 import styles from '../styles/Certifications.module.css';
 
@@ -169,7 +172,7 @@ function Certifications({ certifications, setCertifications }) {
 
     return (
         <div className={styles.container}>
-            <h3 className={styles.title}>Certifications</h3>
+            <h3 className={styles.title}>Sertifikalar</h3>
             
             {isEditing || certifications.length === 0 ? renderCertificationsForm() : renderSummaryCard()}
         </div>
