@@ -15,18 +15,26 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
     // Header (sadece ilk sayfada)
     contentBlocks.push({ type: 'header', jsx: (
         <div className={styles.cvHeader} key="header">
-            <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
                 {userInfo.photo && (
-                    <img src={userInfo.photo} alt="Profil" style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover', border: '2px solid #e3e2e0' }} />
+                    <img src={userInfo.photo} alt="Profil" style={{ 
+                        width: 80, 
+                        height: 80, 
+                        borderRadius: '50%', 
+                        objectFit: 'cover', 
+                        border: '2px solid #e3e2e0',
+                        minWidth: 80,
+                        minHeight: 80
+                    }} />
                 )}
-                <div>
+                <div style={{ flex: 1, minWidth: 0 }}>
                     <div className={styles.cvName}>
                         {userInfo.firstName} {userInfo.lastName}
                     </div>
                     <div className={styles.cvContact}>
                         <div className={styles.cvContactRow}>
                             {userInfo.email && (
-                                <span>
+                                <span style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
                                     {userInfo.email.startsWith('http') ? (
                                         <a href={userInfo.email} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
                                             {userInfo.email}
@@ -38,18 +46,18 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
                                     )}
                                 </span>
                             )}
-                            {userInfo.phone && <span>{userInfo.phone}</span>}
+                            {userInfo.phone && <span style={{ wordBreak: 'break-word' }}>{userInfo.phone}</span>}
                         </div>
                         <div className={styles.cvContactRow}>
                             {userInfo.linkedin && (
-                                <span>
+                                <span style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
                                     <a href={userInfo.linkedin} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
                                         {userInfo.linkedin}
                                     </a>
                                 </span>
                             )}
                             {userInfo.github && (
-                                <span>
+                                <span style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
                                     <a href={userInfo.github} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
                                         {userInfo.github}
                                     </a>
@@ -80,11 +88,11 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
                 jsx: (
                     <div className={styles.cvEduItem} key={`edu-${idx}`}>
                         <div className={styles.cvEduDetails}>
-                            <div style={{ marginBottom: '4px' }}>
+                            <div style={{ marginBottom: '4px', wordBreak: 'break-word' }}>
                                 <strong>{education.school}</strong>
                                 {education.degreeType && `, ${education.degreeType}`}
                             </div>
-                            <div style={{ color: '#787774', fontSize: '0.95rem' }}>
+                            <div style={{ color: '#787774', fontSize: '0.95rem', wordBreak: 'break-word' }}>
                                 {education.program}
                                 {education.doubleMajor && ` / ${education.doubleMajor}`}
                                 {education.gpa && ` • GPA: ${education.gpa}`}
@@ -107,16 +115,16 @@ function CVPreview({ userInfo, educationList, experienceList, skills, activities
                 jsx: (
                     <div className={styles.cvExpItem} key={`exp-${idx}`}>
                         <div className={styles.cvExpDetails}>
-                            <div style={{ marginBottom: '4px' }}>
+                            <div style={{ marginBottom: '4px', wordBreak: 'break-word' }}>
                                 <strong>{exp.position}</strong>{exp.company && `, ${exp.company}`}
                             </div>
                             {exp.duration && (
-                                <div style={{ color: '#787774', fontSize: '0.95rem', marginBottom: '4px' }}>
+                                <div style={{ color: '#787774', fontSize: '0.95rem', marginBottom: '4px', wordBreak: 'break-word' }}>
                                     {exp.duration}
                                 </div>
                             )}
                             {exp.description && (
-                                <div style={{ color: '#9b9a97', fontSize: '0.9rem', lineHeight: '1.4' }}>
+                                <div style={{ color: '#9b9a97', fontSize: '0.9rem', lineHeight: '1.4', wordBreak: 'break-word' }}>
                                     {exp.description}
                                 </div>
                             )}

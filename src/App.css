@@ -254,6 +254,7 @@ button:active {
     padding: 0;
     justify-content: flex-start;
     align-items: center;
+    overflow-x: hidden;
   }
   .cv-a4-wrapper, .cv-a4-wrapper > div {
     width: 100vw;
@@ -265,6 +266,7 @@ button:active {
     border-radius: 0;
     box-shadow: none;
     transform: scale(1);
+    overflow-x: hidden;
   }
   input, button {
     font-size: 16px;
@@ -288,6 +290,7 @@ button:active {
     border-radius: 0;
     box-shadow: none;
     transform: scale(1);
+    overflow-x: hidden;
   }
   .sidebar {
     padding: 4px 1px;
@@ -306,6 +309,40 @@ button:active {
   input, button {
     width: 100%;
     box-sizing: border-box;
+  }
+  
+  /* Mobilde taşma sorunlarını önle */
+  body {
+    overflow-x: hidden;
+  }
+  
+  .app-container {
+    overflow-x: hidden;
+  }
+  
+  .cv-preview-container {
+    overflow-x: hidden;
+  }
+}
+
+/* Çok küçük ekranlar için ek optimizasyonlar */
+@media (max-width: 320px) {
+  .sidebar {
+    padding: 6px 1px;
+  }
+  
+  .section-header {
+    padding: 8px 4px;
+    font-size: 12px;
+  }
+  
+  .section-content {
+    padding: 6px 2px;
+  }
+  
+  input, button {
+    font-size: 14px;
+    padding: 8px 10px;
   }
 }
 

@@ -17,6 +17,100 @@
     position: relative;
 }
 
+/* Mobil responsive ayarları */
+@media (max-width: 600px) {
+    .cvContainer {
+        max-width: 100vw;
+        width: 100vw;
+        margin: 0;
+        padding: 16px 12px;
+        min-height: auto;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+        overflow-x: hidden;
+    }
+    
+    .cvName {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+    }
+    
+    .cvContact {
+        font-size: 0.9rem;
+        margin-top: 8px;
+    }
+    
+    .cvContactRow {
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+    }
+    
+    .cvSectionTitle {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+    
+    .cvEduItem, .cvExpItem {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .cvEduYear, .cvExpDuration {
+        min-width: auto;
+        text-align: left;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .cvContainer {
+        padding: 12px 8px;
+    }
+    
+    .cvName {
+        font-size: 1.6rem;
+    }
+    
+    .cvContact {
+        font-size: 0.85rem;
+    }
+    
+    .cvSectionTitle {
+        font-size: 1.1rem;
+    }
+    
+    .cvHeader {
+        padding-bottom: 16px;
+        margin-bottom: 24px;
+    }
+}
+
+/* Çok küçük ekranlar için ek optimizasyonlar */
+@media (max-width: 320px) {
+    .cvContainer {
+        padding: 8px 6px;
+    }
+    
+    .cvName {
+        font-size: 1.4rem;
+    }
+    
+    .cvContact {
+        font-size: 0.8rem;
+    }
+    
+    .cvSectionTitle {
+        font-size: 1rem;
+    }
+    
+    .cvEduItem, .cvExpItem {
+        margin-bottom: 8px;
+    }
+}
+
 /* Sayfalar alt alta gelsin */
 .cvPreviewPages {
     display: flex;
